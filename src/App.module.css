@@ -1,0 +1,67 @@
+.app {
+    position: absolute;
+    left: 30%;
+    top: 10%;
+    height: 80%;
+    width: 43%;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+}
+
+.form {
+    position: relative;
+    top: 50px;
+    left: 10px;
+    padding: 10px;
+}
+
+.header {
+    display: flex;
+    border: 1px solid black;
+    padding: 10px;
+    justify-content: center;
+}
+
+.footer {
+    display: flex;
+    border: 1px solid black;
+    padding: 10px;
+    justify-content: center
+}
+
+.inputForm {
+    display: flex;
+    margin: 10px;
+}
+
+.inputForm span {
+    margin-left: 10px;
+}
+
+.childrenSpan {
+    margin: 5px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    background-color: lightgrey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 30%;
+    padding: 10px 20px;
+}
+
+.preview {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    height: 300px;
+    left: 20%;
+}
+.button {
+    height: 15vh;
+    padding: 10px;
+}
