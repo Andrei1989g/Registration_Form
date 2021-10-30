@@ -2,14 +2,14 @@ import React, {ChangeEvent, useState} from "react";
 import {TextField} from "@material-ui/core";
 import style from "../App.module.css"
 
-type AddItemFormPropsType = {
+type AddInputFormPropsType = {
     title?: string
     callback: (id: string, name: string | null, age: number) => void
     id: string
     name: string | null
     age: number
 }
-export const AddItemForm = (props: AddItemFormPropsType) => {
+export const AddInputForm = (props: AddInputFormPropsType) => {
     let [name, setName] = useState(props.name)
     let [age, setAge] = useState<number>(props.age)
 

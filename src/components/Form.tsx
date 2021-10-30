@@ -1,4 +1,4 @@
-import {AddItemForm} from "./AddItemForm";
+import {AddInputForm} from "./AddInputForm";
 import {Button} from "@material-ui/core";
 import style from "../App.module.css";
 import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
@@ -19,10 +19,10 @@ export type FakeType = {
     age: number
 }
 type FormPropsType = {
-    setFakeState: Dispatch<SetStateAction<FakeType[]>>
+    setChildrenData: Dispatch<SetStateAction<FakeType[]>>
     setUserData: Dispatch<SetStateAction<UserPropType>>
     userData: UserPropType
-    fakeState: FakeType[]
+    childrenData: FakeType[]
 }
 
 export const Form = (props: FormPropsType) => {
@@ -33,52 +33,42 @@ export const Form = (props: FormPropsType) => {
     const [show, setShow] = useState(true)
 
 
-    const changeUserData = (id: string, name: string | null, age: number) => {
-        props.setUserData({name, age})
-    }
+    const changeUserData = (id: string, name: string | null, age: number) => props.setUserData({name, age})
 
     const changeChildrenData = (id: string, name: string | null, age: number) => {
-        const newState = props.fakeState.map(el => el.id === id ? ({id: el.id, name, age}) : {...el})
+        const newState = props.childrenData.map(el => el.id === id ? ({id: el.id, name, age}) : {...el})
         if (newState) {
-            props.setFakeState(newState)
+            props.setChildrenData(newState)
         }
     }
 
     let saveData = () => {
         dispatch(addUserAC(props.userData.name, props.userData.age))
-        dispatch(addChildrenAC([...props.fakeState]))
+        dispatch(addChildrenAC([...props.childrenData]))
     }
 
-//Почему-то не удаляется CHILD из store
-//Не работает удаление фейкового объекта из массива fakeState
     const removeChild = (taskId: string) => {
         dispatch(removeChildAC(taskId))
-        props.setFakeState(props.fakeState.filter(el => el.id !== taskId))
+        props.setChildrenData(props.childrenData.filter(el => el.id !== taskId))
     }
 
-    const addFakeItemForm = () => {
-        props.setFakeState([...props.fakeState, {id: v1(), name: '', age: 0}])
-    }
+    const addNewInputForm = () => props.setChildrenData([...props.childrenData, {id: v1(), name: '', age: 0}])
+
     useEffect(() => {
-        if (props.fakeState.length >= 5 || children.length >= 5) {
+        if (props.childrenData.length >= 5 || children.length >= 5) {
             setShow(false)
         } else {
             setShow(true)
         }
-    }, [props.fakeState.length, children.length])
-
-    // useEffect(() => {
-    //
-    // }, [user.name, user.age])
-
+    }, [props.childrenData.length, children.length])
 
     return (
         <div>
             <div className={style.form}>
-                <AddItemForm name={user.name}
-                             age={user.age}
-                             id={'6'} title={"Персональные данные"}
-                             callback={changeUserData}/>
+                <AddInputForm name={user.name}
+                              age={user.age}
+                              id={'6'} title={"Персональные данные"}
+                              callback={changeUserData}/>
                 <div>
                 <span className={style.button}> Дети(макс.5)
                     {show ? <Button color="primary" variant="outlined"
@@ -89,20 +79,19 @@ export const Form = (props: FormPropsType) => {
                                         position: "relative",
                                         left: "40%"
                                     }}
-                                    onClick={addFakeItemForm}>
+                                    onClick={addNewInputForm}>
                         Добавить ребёнка
                     </Button> : null}
                 </span>
                 </div>
                 <span>
-                {props.fakeState.map(el => {
+                {props.childrenData.map(el => {
                     return (
                         <span
                             key={el.id}
                             id={el.id}
                             className={style.inputForm}>
-                            {/* должно быть внутри AddItemForm  error={error} setError={setError}*/}
-                            <AddItemForm name={el.name} age={el.age} id={el.id} callback={changeChildrenData}/>
+                            <AddInputForm name={el.name} age={el.age} id={el.id} callback={changeChildrenData}/>
                         <Button
                             onClick={() => removeChild(el.id)}
                             color="primary" variant="outlined"

@@ -12,23 +12,22 @@ import {InitialUserType} from "./store/userReducer";
 
 function App() {
     const user = useSelector<AppRootStateType, InitialUserType>(state => state.user)
-
     const [userData, setUserData] = useState<UserPropType>({name: user.name, age: user.age});
-    const [fakeState, setFakeState] = useState<FakeType[]>([]);
+    const [childrenData, setChildrenData] = useState<FakeType[]>([]);
 
     return (
         <div className={style.app}>
-            <div className={style.mainContent}>
+            <div>
                 <Paper style={{margin: "5px", border: " solid  0.5px"}}>
                     <Header/>
                     <Switch>
-                        <Route exact path="/Form">
+                        <Route path="/Form">
                             <Form userData={userData}
-                                  fakeState={fakeState}
+                                  childrenData={childrenData}
                                   setUserData={setUserData}
-                                  setFakeState={setFakeState}/>
+                                  setChildrenData={setChildrenData}/>
                         </Route>
-                        <Route exact path="/Preview"><Preview/></Route>
+                        <Route path="/Preview"><Preview/></Route>
                     </Switch>
                     <Footer/>
                 </Paper>
