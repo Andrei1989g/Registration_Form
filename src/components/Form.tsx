@@ -4,7 +4,7 @@ import style from "../App.module.css";
 import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../store/store";
-import {addChildrenAC, InitialStateType, removeChildAC} from "../store/childrenReducer";
+import {addChildrenAC, InitialStateType} from "../store/childrenReducer";
 import {addUserAC, InitialUserType} from "../store/userReducer";
 import {v1} from "uuid";
 
@@ -48,7 +48,6 @@ export const Form = (props: FormPropsType) => {
     }
 
     const removeChild = (taskId: string) => {
-        dispatch(removeChildAC(taskId))
         props.setChildrenData(props.childrenData.filter(el => el.id !== taskId))
     }
 
